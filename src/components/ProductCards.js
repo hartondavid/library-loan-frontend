@@ -21,8 +21,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import { apiDeleteBook } from '../api/books';
 import { showErrorToast, showSuccessToast } from '../utils/utilFunctions';
 import { apiGetUserRights } from '../api/rights';
-
-const ProductCards = ({ products, setProducts, editButton = false, deleteButton = false, reserveButton = false, reserveButtonAction, addButton = false, title = false }) => {
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+const ProductCards = ({ products, setProducts, editButton = false, deleteButton = false, reserveButton = false,
+    reserveButtonAction, addButton = false, title = false }) => {
     const navigate = useNavigate();
     const [openDialog, setOpenDialog] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
@@ -85,14 +86,24 @@ const ProductCards = ({ products, setProducts, editButton = false, deleteButton 
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
 
-    function getCardOnClick(product, editButton, navigate, reserveButton) {
-        if (editButton) {
-            return () => navigate(`/dashboard/addEditBook/${product.id}`);
-        } else if (reserveButton && reserveButtonAction) {
-            return () => reserveButtonAction(product.id);
-        }
+    function getCardOnClick(product) {
+
+        return () => handleOpenProductDetailsDialog(product);
 
     }
+
+
+    const [product, setProduct] = useState(null);
+    const [openProductDetailsDialog, setOpenProductDetailsDialog] = useState(false);
+
+    const handleOpenProductDetailsDialog = (product) => {
+        setProduct(product);
+        setOpenProductDetailsDialog(true);
+    };
+
+    const handleCloseProductDetailsDialog = () => {
+        setOpenProductDetailsDialog(false);
+    };
 
 
 
@@ -116,7 +127,7 @@ const ProductCards = ({ products, setProducts, editButton = false, deleteButton 
 
             <Grid container spacing={3}>
                 {currentItems.map((product) => (
-                    <Grid item xs={12} key={product.id}>
+                    <Grid item xs={12} sm={3} md={3} lg={3} key={product.id}>
                         <Card
                             sx={{
                                 height: '100%',
@@ -128,8 +139,6 @@ const ProductCards = ({ products, setProducts, editButton = false, deleteButton 
                                     boxShadow: 6,
                                     cursor: 'pointer'
                                 }
-
-
                             }}
                             onClick={getCardOnClick(product, editButton, navigate, reserveButton)}>
                             <CardMedia
@@ -139,6 +148,8 @@ const ProductCards = ({ products, setProducts, editButton = false, deleteButton 
                                 alt={product.name}
 
                             />
+
+
                             <CardContent sx={{ flexGrow: 1 }}>
                                 <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: '20px', fontWeight: 'bold' }}>
                                     {product.title}
@@ -147,18 +158,29 @@ const ProductCards = ({ products, setProducts, editButton = false, deleteButton 
                                     {product.author}
                                 </Typography>
 
-                                <Typography variant="h6" component="div" sx={{ fontSize: '15px' }}>
-                                    {product.description}
+                                <Typography variant="h6" component="div" sx={{ fontSize: '15px', mb: 1 }}>
+                                    {product.description && product.description.length > 30
+                                        ? <>
+                                            {product.description.slice(0, 30)}<MoreHorizIcon fontSize="small" sx={{ ml: 0.5 }} />
+                                        </>
+                                        : product.description}
                                 </Typography>
 
                                 <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: '15px' }}>
-                                    {product.language}
+                                    {'Limba: ' + product.language}
                                 </Typography>
+
                                 <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: '15px' }}>
-                                    {product.quantity + ' buc'}
+                                    {'Editura: ' + product.publisher}
                                 </Typography>
 
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: '15px' }}>
+                                    {'Numar de pagini: ' + product.number_of_pages}
+                                </Typography>
 
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: '15px' }}>
+                                    {'Cantitate: ' + product.quantity + ' buc'}
+                                </Typography>
 
                             </CardContent>
                             <CardActions sx={{ justifyContent: 'flex-end', p: 2 }}>
@@ -234,6 +256,24 @@ const ProductCards = ({ products, setProducts, editButton = false, deleteButton 
                         Sterge
                     </Button>
                 </DialogActions>
+            </Dialog>
+
+            <Dialog open={openProductDetailsDialog} onClose={handleCloseProductDetailsDialog}>
+                <DialogTitle>Detalii produs</DialogTitle>
+                <DialogContent sx={{ width: '100%', height: '50%' }}>
+                    <Typography variant="body2" color="black" sx={{ fontSize: '25px', fontWeight: 'bold' }}>
+                        {product?.name}
+                    </Typography>
+                    <Typography variant="body2" color="black" sx={{ fontSize: '25px' }}>
+                        {product?.description}
+                    </Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseProductDetailsDialog} sx={{ backgroundColor: '#7B3F00', color: 'white' }}>
+                        Inchide
+                    </Button>
+                </DialogActions>
+
             </Dialog>
 
         </Box>

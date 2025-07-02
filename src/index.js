@@ -12,15 +12,13 @@ import theme from './theme/Default';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const App = () => {
-
-
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/auth/*" element={<Auth />} />
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          <Route path="*" element={<Navigate to="/auth" replace />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

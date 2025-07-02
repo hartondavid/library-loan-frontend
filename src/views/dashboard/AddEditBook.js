@@ -26,7 +26,8 @@ const AddEditBook = ({
         photo: null,
         language: '',
         quantity: '',
-
+        publisher: '',
+        numberOfPages: '',
     });
 
     const [completedForm, setCompletedForm] = useState(false);
@@ -50,6 +51,8 @@ const AddEditBook = ({
             photo: data.photo ? `${process.env.REACT_APP_API_URL}/${data.photo}` : null,
             language: data.language || '',
             quantity: data.quantity || 0,
+            publisher: data.publisher || '',
+            numberOfPages: data.number_of_pages || 0,
         });
     }
 
@@ -106,6 +109,8 @@ const AddEditBook = ({
             description: formData.description,
             language: formData.language,
             quantity: formData.quantity,
+            publisher: formData.publisher,
+            numberOfPages: formData.numberOfPages,
         }
 
         if (fileForImagePath) {
@@ -126,13 +131,15 @@ const AddEditBook = ({
             formData.description &&
             formData.language &&
             formData.quantity &&
-            formData.photo;
+            formData.photo &&
+            formData.publisher &&
+            formData.numberOfPages;
 
         setCompletedForm(isFormCompleted);
     }, [formData]);
     return (
         <>
-            <Box sx={{ marginLeft: '10px', marginRight: '10px', mt: 2, ml: 2 }}  >
+            <Box sx={{ marginLeft: '20px', marginRight: '10px', mt: '20px', mb: '20px' }}  >
                 <Typography variant="h4">
                     <span className="font-bold text-black">{bookId === "0" ? "Adauga carte" : "Editeaza carte"}</span>
                 </Typography>
@@ -266,6 +273,28 @@ const AddEditBook = ({
                                 <MenuItem value={'Spaniola'}>Spaniola</MenuItem>
                             </Select>
                         </FormControl>
+
+                        <TextField
+                            label='Editura'
+                            name="publisher"
+                            type="string"
+                            value={formData.publisher || ''}
+                            onChange={handleChange}
+                            fullWidth
+                            sx={addStyleToTextField(formData.publisher)}
+                        />
+
+
+                        <TextField
+                            label='Numar de pagini'
+                            name="numberOfPages"
+                            type="number"
+                            value={formData.numberOfPages || ''}
+                            onChange={handleChange}
+                            fullWidth
+                            sx={addStyleToTextField(formData.numberOfPages)}
+                        />
+
 
                         <TextField
                             label='Cantitate'

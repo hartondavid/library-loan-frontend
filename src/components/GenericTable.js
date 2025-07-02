@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Typography, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, IconButton } from '@mui/material';
+import {
+    Box, Typography, Button, Paper, Table, TableBody, TableCell, TableContainer,
+    TableHead, TableRow, TablePagination, IconButton, Avatar
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import PropTypes from 'prop-types';
 import { formatDate } from '../utils/utilFunctions';
@@ -67,7 +70,7 @@ const GenericTable = ({ title, subtitle, buttonText, buttonAction, columns, data
 
 
                     {buttonText && buttonAction && (
-                        <Button variant="contained" color="success" onClick={buttonAction} sx={{ mt: -4 }}>
+                        <Button variant="contained" onClick={buttonAction} sx={{ mt: -4, backgroundColor: '#7B3F00', color: 'white' }}>
                             {buttonText}
                         </Button>
                     )}
@@ -117,7 +120,7 @@ const GenericTable = ({ title, subtitle, buttonText, buttonAction, columns, data
                                     } if (column.type === 'filepath') {
                                         return (
                                             <TableCell key={`generic-table-filepath-${column.field}`}>
-                                                {isImageFile(row[column.field]) ? (
+                                                {isImageFile(row[column.field]) && column.field === 'photo' ? (
                                                     <img
                                                         src={`${process.env.REACT_APP_API_URL}/${row[column.field]}`}
                                                         alt="file"
@@ -125,11 +128,12 @@ const GenericTable = ({ title, subtitle, buttonText, buttonAction, columns, data
                                                         onClick={() => handleDownload(`${process.env.REACT_APP_API_URL}/${row[column.field]}`)} // Click to download
                                                     />
                                                 ) : (
-                                                    <IconButton
-                                                        onClick={() => handleDownload(`${process.env.REACT_APP_API_URL}/${row[column.field]}`)}
-                                                    >
-                                                        <InsertDriveFile /> {/* File icon */}
-                                                    </IconButton>
+                                                    <Avatar
+                                                        src={row[column.field]}
+                                                        alt="file"
+                                                        sx={{ width: 70, height: 70, cursor: 'pointer' }}
+                                                        onClick={() => handleDownload(`${process.env.REACT_APP_API_URL}/${row[column.field]}`)} // Click to download
+                                                    />
                                                 )}
                                             </TableCell>
                                         );

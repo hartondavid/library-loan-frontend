@@ -129,7 +129,7 @@ const Login = () => {
                         width: '20%', margin: 'auto',
                         marginTop: '100px', backgroundColor: 'white', padding: '20px', borderRadius: '10px'
                     }}>
-                    <Typography variant="h3">Intra in cont</Typography>
+                    <Typography variant="h4">Intra in cont</Typography>
                     <TextField
                         fullWidth
                         margin="normal"
@@ -154,9 +154,10 @@ const Login = () => {
                         sx={addStyleToTextField(password)}
                     />
 
-                    <Button variant="contained" sx={{ backgroundColor: ' #7B3F00', color: 'white' }} fullWidth onClick={login}>
+                    <Button variant="contained" sx={{ backgroundColor: ' #7B3F00', color: 'white', mb: 1, mt: 1 }} fullWidth onClick={login}>
                         {'login'}
                     </Button>
+
                 </Box>
             </div>
 

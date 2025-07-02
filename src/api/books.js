@@ -13,6 +13,9 @@ export const apiAddBook = async (successCallback, errorCallback, reqData) => {
         formData.append('description', reqData.description);
         formData.append('language', reqData.language);
         formData.append('quantity', reqData.quantity);
+        formData.append('publisher', reqData.publisher);
+        formData.append('number_of_pages', reqData.numberOfPages);
+
         if (reqData.photo) {
             formData.append('photo', reqData.photo); // Make sure `reqData.image_path` is a File object
         }
@@ -48,6 +51,8 @@ export const apiUpdateBook = async (successCallback, errorCallback, bookId, reqD
         formData.append('description', reqData.description);
         formData.append('language', reqData.language);
         formData.append('quantity', reqData.quantity);
+        formData.append('publisher', reqData.publisher);
+        formData.append('number_of_pages', reqData.numberOfPages);
 
         if (reqData.photo) {
             formData.append('photo', reqData.photo); // Make sure `reqData.image_path` is a File object

@@ -4,6 +4,8 @@ import Books from "./views/dashboard/Books.js";
 import AddEditBook from "./views/dashboard/AddEditBook.js";
 import Loans from "./views/dashboard/Loans.js";
 import History from "./views/dashboard/History.js";
+import Users from "./views/dashboard/Users.js";
+import AddUser from "./views/dashboard/AddUser.js";
 var routes = [
     {
         path: "/login",
@@ -46,6 +48,20 @@ var routes = [
         name: "History",
         icon: "ni ni-book-bookmark text-primary",
         component: History,
+        layout: "/dashboard",
+    },
+    {
+        path: "/users",
+        name: "Users",
+        icon: "ni ni-book-bookmark text-primary",
+        component: Users,
+        layout: "/dashboard",
+    },
+    {
+        path: "/addUser",
+        name: "Add User",
+        icon: "ni ni-book-bookmark text-primary",
+        component: AddUser,
         layout: "/dashboard",
     },
 ]

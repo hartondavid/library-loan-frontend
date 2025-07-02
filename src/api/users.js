@@ -219,6 +219,48 @@ export const apiGetAllCouriersByAdminId = async (successCallback, errorCallback)
 };
 
 
+export const apiGetUsers = async (successCallback, errorCallback) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const token = getToken();
+    try {
+        const response = await fetch(`${apiUrl}/api/users/getUsers`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        const data = await response.json();
+        if (!data.success) {
+            errorCallback(data.message);
+        } else {
+            successCallback(data);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        errorCallback({ success: false, message: "Failed to fetch users" });
+    }
+};
 
-
-
+export const apiDeleteUser = async (successCallback, errorCallback, userId) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const token = getToken();
+    try {
+        const response = await fetch(`${apiUrl}/api/users/deleteUser/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        const data = await response.json();
+        if (!data.success) {
+            errorCallback(data.message);
+        } else {
+            successCallback(data);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        errorCallback({ success: false, message: "Failed to delete user" });
+    }
+};

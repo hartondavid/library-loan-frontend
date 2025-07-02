@@ -1,7 +1,5 @@
 import { getToken } from "../utils/utilFunctions";
 
-
-
 export const apiGetUserRights = async (setUserRights) => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const token = getToken();

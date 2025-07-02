@@ -33,7 +33,6 @@ const Books = ({ userRights }) => {
     // };
     const [formData, setFormData] = useState({
         start_date: '',
-        end_date: '',
         quantity: ''
     });
 
@@ -84,14 +83,13 @@ const Books = ({ userRights }) => {
             setData(data.map((book) => book.id === loanToAdd ? { ...book, quantity: book.quantity - formData.quantity } : book));
 
             console.log('loanToAdd', loanToAdd);
-        }, showErrorToast, loanToAdd, formData.quantity, toUTCISOString(formData.start_date), toUTCISOString(formData.end_date));
+        }, showErrorToast, loanToAdd, formData.quantity, toUTCISOString(formData.start_date));
     };
 
     const handleCloseAddLoanDialog = () => {
         setOpenAddLoanDialog(false);
         setFormData({
             start_date: '',
-            end_date: '',
             quantity: ''
         });
         setLoanToAdd(null);
@@ -100,7 +98,6 @@ const Books = ({ userRights }) => {
     useEffect(() => {
         const isFormCompleted =
             formData.start_date &&
-            formData.end_date &&
             formData.quantity;
 
         setCompletedForm(isFormCompleted);
@@ -158,26 +155,6 @@ const Books = ({ userRights }) => {
 
                             />
                         </Box>
-
-                        <Box sx={{ position: 'relative', width: '100%' }}>
-
-                            <TextField
-                                label="Data de sfarsit"
-                                type="datetime-local"
-                                name="end_date"
-                                value={formData.end_date}
-                                onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
-                                fullWidth
-                                InputLabelProps={{ shrink: true }}
-                                style={{ marginTop: '1rem' }}
-                                inputProps={{
-                                    min: new Date().toISOString().slice(0, 16),
-                                }}
-                                sx={addStyleToTextField(formData.end_date)}
-
-                            />
-                        </Box>
-
 
                         <Box sx={{ position: 'relative', width: '100%' }}>
 

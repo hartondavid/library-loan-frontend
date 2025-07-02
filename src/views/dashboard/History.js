@@ -24,7 +24,11 @@ const columns = [
     { field: 'title', headerName: 'Titlu', type: 'string' },
     { field: 'author', headerName: 'Autor', type: 'string' },
     { field: 'photo', headerName: 'Foto', type: 'filepath' },
-    { field: 'quantity', headerName: 'Cantitate', type: 'string' },
+    {
+        field: 'quantity', headerName: 'Cantitate', type: 'string', renderCell: ({ value }) => {
+            return value + ' buc';
+        }
+    },
     {
         field: 'status', headerName: 'Status', type: 'string',
         renderCell: ({ value }) => {
@@ -100,6 +104,11 @@ const History = ({ userRights }) => {
             apiGetPastLoansByStudentId((response) => {
                 setData(response.data);
                 console.log('rezervari student', response.data);
+            }, showErrorToast);
+        } else if (rightCode === RIGHTS_MAPPING.ADMIN) {
+            apiGetPastLoans((response) => {
+                setData(response.data);
+                console.log('rezervari admin', response.data);
             }, showErrorToast);
         }
 

@@ -22,6 +22,7 @@ import { apiDeleteBook } from '../api/books';
 import { showErrorToast, showSuccessToast } from '../utils/utilFunctions';
 import { apiGetUserRights } from '../api/rights';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { getImageUrl } from '../utils/imageUtils'
 const ProductCards = ({ products, setProducts, editButton = false, deleteButton = false, reserveButton = false,
     reserveButtonAction, addButton = false, title = false }) => {
     const navigate = useNavigate();
@@ -144,7 +145,7 @@ const ProductCards = ({ products, setProducts, editButton = false, deleteButton 
                             <CardMedia
                                 component="img"
                                 height="400px"
-                                image={`${process.env.REACT_APP_API_URL}/${product.photo}`}
+                                image={process.env.NODE_ENV === 'development' ? product.photo : getImageUrl(product.photo)}
                                 alt={product.name}
 
                             />

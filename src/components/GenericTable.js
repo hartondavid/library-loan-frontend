@@ -9,7 +9,7 @@ import { formatDate } from '../utils/utilFunctions';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
-import { InsertDriveFile } from '@mui/icons-material';
+import { getImageUrl } from '../utils/imageUtils';
 
 const GenericTable = ({ title, subtitle, buttonText, buttonAction, columns, data, childrenColumns = [], childrenData, isExtendedTable = false, edit, onEdit, actions = [] }) => {
 
@@ -122,17 +122,17 @@ const GenericTable = ({ title, subtitle, buttonText, buttonAction, columns, data
                                             <TableCell key={`generic-table-filepath-${column.field}`}>
                                                 {isImageFile(row[column.field]) && column.field === 'photo' ? (
                                                     <img
-                                                        src={process.env.NODE_ENV === 'development' ? row[column.field] : `${process.env.REACT_APP_API_URL}/${row[column.field]}`}
+                                                        src={process.env.NODE_ENV === 'development' ? row[column.field] : getImageUrl(row[column.field])}
                                                         alt="file"
                                                         style={{ maxHeight: '100px', maxWidth: '100px', cursor: 'pointer' }}
-                                                        onClick={() => handleDownload(process.env.NODE_ENV === 'development' ? row[column.field] : `${process.env.REACT_APP_API_URL}/${row[column.field]}`)} // Click to download
+                                                        onClick={() => handleDownload(process.env.NODE_ENV === 'development' ? row[column.field] : getImageUrl(row[column.field]))} // Click to download
                                                     />
                                                 ) : (
                                                     <Avatar
                                                         src={row[column.field]}
                                                         alt="file"
                                                         sx={{ width: 70, height: 70, cursor: 'pointer' }}
-                                                        onClick={() => handleDownload(`${process.env.REACT_APP_API_URL}/${row[column.field]}`)} // Click to download
+                                                        onClick={() => handleDownload(process.env.NODE_ENV === 'development' ? row[column.field] : getImageUrl(row[column.field]))} // Click to download
                                                     />
                                                 )}
                                             </TableCell>

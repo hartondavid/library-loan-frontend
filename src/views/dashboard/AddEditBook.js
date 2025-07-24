@@ -6,6 +6,7 @@ import { showErrorToast, showSuccessToast } from "../../utils/utilFunctions";
 import EditIcon from '@mui/icons-material/Edit';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { addStyleToTextField } from "../../utils/utilFunctions";
+import { getImageUrl } from "../../utils/imageUtils";
 
 const AddEditBook = ({
 }) => {
@@ -48,7 +49,7 @@ const AddEditBook = ({
             title: data.title || '',
             author: data.author || '',
             description: data.description || '',
-            photo: data.photo ? `${process.env.REACT_APP_API_URL}/${data.photo}` : null,
+            photo: data.photo ? getImageUrl(data.photo) : null,
             language: data.language || '',
             quantity: data.quantity || 0,
             publisher: data.publisher || '',

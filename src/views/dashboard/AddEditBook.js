@@ -158,7 +158,7 @@ const AddEditBook = ({
                         {formData.photo && confirm ? (
                             <>
                                 <img
-                                    src={getImageUrl(formData.photo)}
+                                    src={formData.photo}
                                     alt=""
                                     style={{
                                         maxHeight: '300px',
